@@ -1,133 +1,124 @@
-因為我與你的上面對話對我而言很重要，如果採用第二方案，這些對話不易保存，所以我要採用第一方案，但為了保持原始專案的正確關聯，我是否採用第一方案後，再採用你上面的「額外建議」來添加原始專案以作為上游 repo ？
+@Codebase @.cursorrules  請梳理這個專案的所有功能，並詳細描述各個功能在頁面上的表現，以及各個頁面組件的交互邏輯，讓一個非技術人員的用戶能理這這個專案。
 
-是的，這是個很好的想法！讓我為您規劃具體的執行步驟：
+我來為您詳細解釋這個專案的功能和運作方式：
 
-## 1. 保存當前對話和學習進度
+# Open Deep Research 專案解析
 
-```bash
-# 確保當前的修改都已提交
-git add .
-git commit -m "docs: 初始學習記錄
+這是一個 AI 驅動的深度研究助手，能夠對任何主題進行迭代式深入研究。讓我們從用戶角度來了解它的功能：
 
-- 添加學習筆記結構
-- 記錄與 AI 助手的重要對話
-- 設置專案學習規劃"
+## 1. 主要功能
+
+### 1.1 研究助手功能
+- 輸入任何研究主題
+- 自動生成相關搜索查詢
+- 分析搜索結果
+- 產生詳細的研究報告
+
+### 1.2 互動流程
+當用戶啟動程序時（使用 `npm start`），會經歷以下步驟：
+
+1. **初始查詢輸入**
+```
+What would you like to research? [用戶在此輸入研究主題]
 ```
 
-## 2. 執行方案一（重設遠端倉庫）
+2. **研究參數設置**
+```
+Enter research breadth (recommended 2-10, default 4): [設置研究廣度]
+Enter research depth (recommended 1-5, default 2): [設置研究深度]
+```
+- 廣度：決定每個層級要探索的相關主題數量
+- 深度：決定要深入研究的層級數量
 
-```bash
-# 1. 查看目前的遠端倉庫
-git remote -v
+3. **追加問題階段**
+- 系統會根據初始查詢生成跟進問題
+- 用戶需要回答這些問題以幫助系統更好地理解研究需求
 
-# 2. 移除原始的遠端倉庫
-git remote remove origin
-
-# 3. 在 GitHub 上創建新的倉庫（不要初始化）
-
-# 4. 添加您的倉庫作為主要遠端倉庫
-git remote add origin https://github.com/您的用戶名/open-deep-research.git
-
-# 5. 推送所有內容到您的倉庫
-git push -u origin main
+4. **研究進度顯示**
+在研究過程中，螢幕會顯示即時進度條：
+```
+Depth:    [██████████████████████] 75%
+Breadth:  [███████████████] 50%
+Queries:  [██████████] 30%
+Current:  正在研究的具體查詢內容
 ```
 
-## 3. 添加原始專案作為上游倉庫
+5. **最終輸出**
+- 生成一個完整的 Markdown 格式報告
+- 自動保存為 `output.md` 文件
+- 包含所有研究發現和參考來源
 
-```bash
-# 添加原始專案作為上游倉庫
-git remote add upstream https://github.com/原作者/open-deep-research.git
+## 2. 進度追蹤系統
 
-# 驗證遠端倉庫設置
-git remote -v
-# 應該看到類似這樣的輸出：
-# origin    https://github.com/您的用戶名/open-deep-research.git (fetch)
-# origin    https://github.com/您的用戶名/open-deep-research.git (push)
-# upstream  https://github.com/原作者/open-deep-research.git (fetch)
-# upstream  https://github.com/原作者/open-deep-research.git (push)
+### 2.1 進度條顯示
+- **深度進度**：顯示研究深入程度
+- **廣度進度**：顯示橫向研究覆蓋範圍
+- **查詢進度**：顯示已完成的搜索查詢數量
+- **當前任務**：顯示正在處理的具體查詢
+
+### 2.2 即時更新
+- 進度條會實時更新
+- 使用動態刷新，不會干擾其他輸出內容
+- 清晰顯示研究進展
+
+## 3. 最終報告格式
+
+報告通常包含以下部分：
+- 研究主題概述
+- 主要發現
+- 深入分析
+- 相關數據和統計
+- 參考來源列表
+
+## 4. 使用案例示例
+
+假設用戶想研究"人工智能在醫療診斷中的應用"：
+
+1. **輸入階段**
+```
+What would you like to research? 人工智能在醫療診斷中的應用
+Enter research breadth: 4
+Enter research depth: 2
 ```
 
-## 4. 建立學習分支結構
+2. **跟進問題可能包括**：
+- 您對特定醫療領域特別感興趣嗎？
+- 您是否需要關注特定的AI技術？
+- 您是否需要包含成本效益分析？
 
-```bash
-# 創建並切換到學習主分支
-git checkout -b learning-main
+3. **研究過程**
+- 系統會自動搜索相關文獻
+- 分析醫療AI應用案例
+- 整理研究發現
+- 生成綜合報告
 
-# 推送學習主分支到您的倉庫
-git push -u origin learning-main
-```
+## 5. 技術特點（用戶視角）
 
-## 5. 設置學習文檔結構
+- **智能查詢生成**：自動創建相關搜索詞
+- **深度分析**：逐層深入研究主題
+- **並行處理**：同時處理多個搜索和分析任務
+- **自適應研究**：根據初始結果調整研究方向
+- **全面報告**：生成結構化的研究報告
 
-```bash
-# 創建更完整的學習文檔結構
-mkdir -p learning-notes/{daily,topics,experiments,discussions}
+## 6. 使用建議
 
-# 創建重要文檔
-touch learning-notes/README.md
-touch learning-notes/discussions/ai-assistant-dialogue.md
-```
+1. **研究主題**：
+   - 盡可能具體
+   - 清晰表達研究目標
+   - 提供足夠的背景信息
 
-## 6. 記錄重要對話
+2. **參數選擇**：
+   - 廣度(2-10)：影響研究範圍
+   - 深度(1-5)：影響研究細節程度
 
-在 `learning-notes/discussions/ai-assistant-dialogue.md` 中：
+3. **跟進問題**：
+   - 詳細回答系統提出的問題
+   - 提供具體的研究方向偏好
+   - 說明特定的關注點
 
-```markdown
-# AI 助手討論記錄
-
-## 2024-XX-XX: 專案設置與 Git 管理策略討論
-
-### 討論要點：
-1. 專案版本控制策略
-2. 遠端倉庫管理方式
-3. 學習進度追蹤方法
-
-### 重要決策：
-1. 採用方案一 + 上游倉庫的混合策略
-2. 建立完整的學習文檔結構
-3. 保留重要對話記錄
-
-### 執行步驟：
-[記錄具體執行的命令和步驟]
-
-### 後續計畫：
-1. 定期同步上游倉庫更新
-2. 維護學習進度文檔
-3. 記錄重要技術討論
-```
-
-## 7. 同步上游更新的方法
-
-當需要同步原始專案的更新時：
-
-```bash
-# 確保當前分支的修改已提交
-git add .
-git commit -m "docs: 更新學習筆記"
-
-# 切換到 main 分支
-git checkout main
-
-# 獲取上游更新
-git fetch upstream
-
-# 合併上游更新
-git merge upstream/main
-
-# 推送到您的倉庫
-git push origin main
-
-# 切換回學習分支
-git checkout learning-main
-
-# 如果需要，將 main 的更新合併到學習分支
-git merge main
-```
-
-這樣的設置可以：
-1. 保留所有重要的學習對話
-2. 維持與原始專案的連接
-3. 清晰地分離學習內容和專案代碼
-4. 方便進行版本控制和進度追蹤
-
-建議您在執行這些步驟時，同時在 `learning-notes/README.md` 中記錄整個設置過程，這樣未來回顧時會更清晰。
+這個工具特別適合：
+- 學術研究初期調研
+- 市場分析
+- 技術趨勢研究
+- 競爭對手分析
+- 新領域探索
